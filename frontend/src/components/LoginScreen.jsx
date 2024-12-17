@@ -12,17 +12,20 @@ const LoginScreen = () => {
       new FormData(e.target).entries()
     );
 
-    const login = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
+    const login = await fetch(
+      "https://techdome-oitw.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => res.json());
 
     if (login.success) {
       localStorage.setItem("token", true);
