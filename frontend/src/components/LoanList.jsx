@@ -9,7 +9,7 @@ const LoanList = ({ userId, trigger }) => {
   const fetchLoans = async () => {
     try {
       setLoading(true);
-      const response = await getLoans(userId);
+      const response = await getLoans();
       setLoans(response.data);
       setLoading(false);
     } catch (err) {

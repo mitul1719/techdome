@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const navigate = useNavigate();
 
-  const isAdmin = localStorage.getItem("isAdmin");
+  const isAdmin = JSON.parse(localStorage.getItem("isAdmin") || "false");
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -24,7 +24,7 @@ function App() {
           marginTop: "1rem",
         }}
       >
-        {isAdmin ? <div class="badge">Admin</div> : null}
+        {Boolean(isAdmin) ? <div class="badge">Admin</div> : null}
 
         <button
           onClick={() => {

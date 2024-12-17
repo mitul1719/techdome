@@ -12,20 +12,17 @@ const Register = () => {
       new FormData(e.target).entries()
     );
 
-    const register = await fetch(
-      "https://techdome-oitw.onrender.com/api/auth/register",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((res) => res.json());
+    const register = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
 
     if (register.success) {
       localStorage.setItem("token", true);

@@ -46,44 +46,10 @@ exports.approveLoan = async (req, res) => {
   }
 };
 
-// Add a repayment
-// exports.addRepayment = async (req, res) => {
-//   const { amount } = req.body;
-//   try {
-//     const loan = await Loan.findById(req.params.id);
-//     if (!loan) return res.status(404).json({ message: "Loan not found" });
-
-//     const nextRepayment = loan.repayments.find(
-//       (rep) => rep.status === "PENDING"
-//     );
-//     if (!nextRepayment)
-//       return res.status(400).json({ message: "All repayments are completed" });
-
-//     console.log(amount);
-//     return;
-//     if (amount === nextRepayment.amount) {
-//       nextRepayment.status = "PAID";
-//       await loan.save();
-
-//       // Check if all repayments are paid
-//       if (loan.repayments.every((rep) => rep.status === "PAID")) {
-//         loan.status = "PAID";
-//         await loan.save();
-//       }
-//       res.json(loan);
-//     } else {
-//       res.status(400).json({ message: "Repayment amount is incorrect" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
 // Get all loans for a user
 exports.getAllLoans = async (req, res) => {
-  const { userId } = req.query;
   try {
-    const loans = await Loan.find({ userId });
+    const loans = await Loan.find({});
     res.json(loans);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -125,11 +91,9 @@ exports.addRepayment = async (req, res) => {
     const remainingAmount = amount - nextRepayment.amount;
     if (remainingAmount > 0) {
       // Logic to handle overpayments, e.g., apply it to the next repayment
-      return res
-        .status(400)
-        .json({
-          message: `Repayment amount is incorrect,should be equal to ${nextRepayment.amount}`,
-        });
+      return res.status(400).json({
+        message: `Repayment amount is incorrect,should be equal to ${nextRepayment.amount}`,
+      });
     }
 
     // Update loan status if all repayments are completed

@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://techdome-oitw.onrender.com/api/loans";
+const API_BASE_URL = "http://localhost:5000/api/loans";
 
 export const createLoan = async (userId, amount, term) => {
   return await axios.post(API_BASE_URL, { userId, amount, term });
 };
 
-export const getLoans = async (userId) => {
-  return await axios.get(`${API_BASE_URL}${userId ? `?userId=${userId}` : ""}`);
+export const getLoans = async () => {
+  return await axios.get(API_BASE_URL);
 };
 
 export const addRepayment = async (loanId, amount) => {
